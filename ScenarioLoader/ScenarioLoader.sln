@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScenarioLoader.Functions", "ScenarioLoader.Functions\ScenarioLoader.Functions.csproj", "{FF6C13C5-B252-4979-8180-21D148C2570A}"
-EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "ScenarioLoader.Template", "ScenarioLoader.Template\ScenarioLoader.Template.deployproj", "{6BE16481-10B4-4780-8AF0-44CDF80AB2DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScenarioLoader.Logic", "ScenarioLoader.Logic\ScenarioLoader.Logic.csproj", "{E6973D6E-6735-4B82-A446-4CB0A9EB4B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScenarioLoader.Logic", "ScenarioLoader.Logic\ScenarioLoader.Logic.csproj", "{E6973D6E-6735-4B82-A446-4CB0A9EB4B3C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{B4A40D0E-0BD9-4DD0-B149-7A15EB1CC44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScenarioLoader.Functions", "ScenarioLoader.Functions\ScenarioLoader.Functions.csproj", "{E3C031AA-5F44-4D7B-8C99-BBEB3061E584}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF6C13C5-B252-4979-8180-21D148C2570A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF6C13C5-B252-4979-8180-21D148C2570A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF6C13C5-B252-4979-8180-21D148C2570A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF6C13C5-B252-4979-8180-21D148C2570A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BE16481-10B4-4780-8AF0-44CDF80AB2DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BE16481-10B4-4780-8AF0-44CDF80AB2DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BE16481-10B4-4780-8AF0-44CDF80AB2DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{B4A40D0E-0BD9-4DD0-B149-7A15EB1CC44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4A40D0E-0BD9-4DD0-B149-7A15EB1CC44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4A40D0E-0BD9-4DD0-B149-7A15EB1CC44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3C031AA-5F44-4D7B-8C99-BBEB3061E584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C031AA-5F44-4D7B-8C99-BBEB3061E584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3C031AA-5F44-4D7B-8C99-BBEB3061E584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3C031AA-5F44-4D7B-8C99-BBEB3061E584}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

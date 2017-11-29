@@ -9,7 +9,7 @@ namespace ScenarioLoader.Functions
     {
         [FunctionName("GenerateSimulation")]
         [return: EventHub("outputEventHubMessage", Connection = "EventHubConnection")]
-        public static void Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, TraceWriter log)
+        public static void Run([TimerTrigger("*/5 * * * * *")]TimerInfo myTimer, TraceWriter log)
         {
             log.Info($"C# Timer trigger function executed at: {DateTime.Now}");
         }

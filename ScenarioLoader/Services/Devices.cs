@@ -163,13 +163,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services
                     () => this.registry.AddDeviceAsync(device, cancellationToken));
 
                 var twin = new Twin();
-                if (!DISCARD_TWIN_ON_CREATION)
-                {
-                    this.log.Debug("Fetching device twin", () => new { device.Id });
-                    twin = await this.rateLimiting.LimitTwinReadsAsync(() => this.registry.GetTwinAsync(device.Id, cancellationToken));
-                }
-
-                this.log.Debug("Writing device twin an adding the `IsSimulated` Tag",
+                log.Debug("Writing device twin an adding the `IsSimulated` Tag",
                     () => new { device.Id, DeviceTwin.SIMULATED_TAG_KEY, DeviceTwin.SIMULATED_TAG_VALUE });
                 twin.Tags[DeviceTwin.SIMULATED_TAG_KEY] = DeviceTwin.SIMULATED_TAG_VALUE;
 
