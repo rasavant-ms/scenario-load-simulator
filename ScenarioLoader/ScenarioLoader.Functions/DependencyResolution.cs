@@ -70,7 +70,6 @@ namespace ScenarioLoader.Functions
             // dependencies. To improve performance we reuse some instances,
             // for example to reuse IoT Hub connections, as opposed to creating
             // a new connection every time.
-            builder.RegisterType<Simulations>().As<ISimulations>().SingleInstance();
             builder.RegisterType<DeviceModels>().As<IDeviceModels>().SingleInstance();
             builder.RegisterType<Devices>().As<IDevices>().SingleInstance();
             builder.RegisterType<RateLimiting>().As<IRateLimiting>().SingleInstance();
