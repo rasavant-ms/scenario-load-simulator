@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Jint;
 using Jint.Native;
 using Jint.Runtime.Descriptors;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Simulation
 {
@@ -24,15 +23,16 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Simulation
     public class JavascriptInterpreter : IJavascriptInterpreter
     {
         private readonly ILogger log;
-        private readonly string folder;
+        private readonly IDeviceFileManager deviceFileManager;
         private Dictionary<string, object> deviceState;
 
         public JavascriptInterpreter(
+            IDeviceFileManager deviceFileManager,
             IServicesConfig config,
             ILogger logger)
         {
-            this.folder = config.DeviceModelsScriptsFolder;
             this.log = logger;
+            this.deviceFileManager = deviceFileManager;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Simulation
         /// Returns a map of values.
         /// </summary>
         public Dictionary<string, object> Invoke(
-            string filename,
+            string fileName,
             Dictionary<string, object> context,
             Dictionary<string, object> state)
         {
@@ -59,14 +59,14 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Simulation
             //register sleep function for javascript use
             engine.SetValue("sleep", new Action<int>(this.Sleep));
 
-            var sourceCode = this.LoadScript(filename);
-            this.log.Debug("Executing JS function", () => new { filename });
+            var sourceCode = deviceFileManager.DeviceScriptFiles[fileName];
+            this.log.Debug("Executing JS function", () => new { fileName });
 
             try
             {
                 var output = engine.Execute(sourceCode).Invoke("main", context, this.deviceState);
                 var result = this.JsValueToDictionary(output);
-                this.log.Debug("JS function success", () => new { filename, result });
+                this.log.Debug("JS function success", () => new { fileName, result });
                 return result;
             }
             catch (Exception e)
@@ -128,18 +128,6 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Simulation
             }
         }
 
-        private string LoadScript(string filename)
-        {
-            var filePath = this.folder + filename;
-            if (!File.Exists(filePath))
-            {
-                this.log.Error("Javascript file not found", () => new { filePath });
-                throw new FileNotFoundException($"File {filePath} not found.");
-            }
-
-            return File.ReadAllText(filePath);
-        }
-
         private void JsLog(object data)
         {
             this.log.Debug("Log from JS", () => new { data });
@@ -160,7 +148,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Simulation
 
             this.log.Debug("Updating state from the script", () => new { data, this.deviceState });
 
-            stateChanges = this.JsValueToDictionary((JsValue) data);
+            stateChanges = this.JsValueToDictionary((JsValue)data);
 
             //Update device state with the script data passed
             lock (this.deviceState)

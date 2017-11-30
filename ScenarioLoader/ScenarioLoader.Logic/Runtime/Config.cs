@@ -59,8 +59,6 @@ namespace ScenarioLoader.Logic.Runtime
 
             this.ServicesConfig = new ServicesConfig
             {
-                DeviceModelsFolder = MapRelativePath(configData.GetString(DEVICE_MODELS_FOLDER_KEY)),
-                DeviceModelsScriptsFolder = MapRelativePath(configData.GetString(DEVICE_MODELS_SCRIPTS_FOLDER_KEY)),
                 IoTHubConnString = connstring,
                 StorageAdapterApiUrl = configData.GetString(STORAGE_ADAPTER_API_URL_KEY),
                 StorageAdapterApiTimeout = configData.GetInt(STORAGE_ADAPTER_API_TIMEOUT_KEY),

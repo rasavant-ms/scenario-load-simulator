@@ -1,13 +1,14 @@
 // Copyright (c) Microsoft. All rights reserved.
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Exceptions;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime
 {
@@ -39,6 +40,11 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime
         {
             var value = this.configuration.GetValue(key, defaultValue);
             this.ReplaceEnvironmentVariables(ref value, defaultValue);
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                value = ConfigurationManager.AppSettings["IoTHubConnection"];
+            }
+
             return value;
         }
 

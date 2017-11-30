@@ -1,17 +1,12 @@
-// Copyright (c) Microsoft. All rights reserved.
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
+﻿using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Exceptions;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Models;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-// TODO: tests
-// TODO: handle errors
 namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services
 {
     public interface IDeviceModels
@@ -24,6 +19,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services
     {
         private const string EXT = ".json";
 
+        private readonly IDeviceFileManager deviceFileManager;
         private readonly IServicesConfig config;
         private readonly ILogger log;
 
@@ -31,9 +27,11 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services
         private List<DeviceModel> deviceModels;
 
         public DeviceModels(
+            IDeviceFileManager deviceFileManager,
             IServicesConfig config,
             ILogger logger)
         {
+            this.deviceFileManager = deviceFileManager;
             this.config = config;
             this.log = logger;
             this.deviceModelFiles = null;
@@ -49,10 +47,11 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services
             try
             {
                 var files = this.GetDeviceModelFiles();
-                foreach (var f in files)
+                foreach (var file in files)
                 {
-                    var c = JsonConvert.DeserializeObject<DeviceModel>(File.ReadAllText(f));
-                    this.deviceModels.Add(c);
+                    //var c = JsonConvert.DeserializeObject<DeviceModel>(File.ReadAllText(f));
+                    var deviceModel = JsonConvert.DeserializeObject<DeviceModel>(deviceFileManager.DeviceModelFiles[file]);
+                    this.deviceModels.Add(deviceModel);
                 }
             }
             catch (Exception e)
@@ -82,11 +81,12 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services
         {
             if (this.deviceModelFiles != null) return this.deviceModelFiles;
 
-            this.log.Debug("Device models folder", () => new { this.config.DeviceModelsFolder });
+            //this.log.Debug("Device models folder", () => new { this.config.DeviceModelsFolder });
 
-            var fileEntries = Directory.GetFiles(this.config.DeviceModelsFolder);
+            //var fileEntries = Directory.GetFiles(this.config.DeviceModelsFolder);
 
-            this.deviceModelFiles = fileEntries.Where(fileName => fileName.EndsWith(EXT)).ToList();
+            var fileEntries = deviceFileManager.DeviceModelFiles;
+            this.deviceModelFiles = fileEntries.Where(fileName => fileName.Key.EndsWith(EXT)).Select(kvp => kvp.Key).ToList();
 
             this.log.Debug("Device model files", () => new { this.deviceModelFiles });
 

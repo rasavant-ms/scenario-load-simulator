@@ -3,6 +3,7 @@ using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Concurrency;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime;
+using ScenarioLoader.Logic;
 using ScenarioLoader.Logic.Interfaces;
 using ScenarioLoader.Logic.Runtime;
 using ScenarioLoader.Logic.Simulation.DeviceStatusLogic;
@@ -80,6 +81,10 @@ namespace ScenarioLoader.Functions
             builder.RegisterType<UpdateDeviceState>().As<UpdateDeviceState>();
             builder.RegisterType<SendTelemetry>().As<SendTelemetry>();
             builder.RegisterType<UpdateReportedProperties>().As<UpdateReportedProperties>();
+            builder.RegisterType<Factory>().As<IFactory>();
+            builder.RegisterType<DeviceActor>().As<IDeviceActor>();
+
+            builder.RegisterType<DeviceFileManager>().As<IDeviceFileManager>().SingleInstance();
         }
 
         private static void RegisterFactory(IContainer container)

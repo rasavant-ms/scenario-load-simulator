@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft. All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Diagnostics;
 using Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Exceptions;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Models
 {
@@ -17,7 +17,7 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Models
         public Script()
         {
             this.Type = "javascript";
-            this.Path = "scripts" + System.IO.Path.DirectorySeparatorChar;
+            this.Path = "";
             this.Interval = TimeSpan.Zero;
         }
     }

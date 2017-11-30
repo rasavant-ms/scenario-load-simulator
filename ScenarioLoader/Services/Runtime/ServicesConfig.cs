@@ -6,8 +6,6 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime
 {
     public interface IServicesConfig
     {
-        string DeviceModelsFolder { get; set; }
-        string DeviceModelsScriptsFolder { get; set; }
         string IoTHubConnString { get; set; }
         string StorageAdapterApiUrl { get; set; }
         int StorageAdapterApiTimeout { get; set; }
@@ -34,18 +32,6 @@ namespace Microsoft.Azure.IoTSolutions.DeviceSimulation.Services.Runtime
                 TwinReadsPerSecond = 5,
                 TwinWritesPerSecond = 5,
             };
-        }
-
-        public string DeviceModelsFolder
-        {
-            get { return this.dtf; }
-            set { this.dtf = this.NormalizePath(value); }
-        }
-
-        public string DeviceModelsScriptsFolder
-        {
-            get { return this.dtbf; }
-            set { this.dtbf = this.NormalizePath(value); }
         }
 
         public string IoTHubConnString { get; set; }
