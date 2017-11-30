@@ -33,9 +33,9 @@ namespace ScenarioLoader.Functions
 
             // TODO: use async/await with C# 7.1
             //container.Resolve<ISimulation>().RunAsync().Wait();
-            var deviceActor = container.Resolve<IDeviceActor>();
-            var deviceModel = new DeviceModel();
-            deviceActor.Setup(deviceModel, 1).Start(cancellationToken);
+            //var deviceActor = container.Resolve<IDeviceActor>();
+            //var deviceModel = new DeviceModel();
+            //deviceActor.Setup(deviceModel, 1).Start(cancellationToken);
         }
 
         private static void PrintBootstrapInfo(IContainer container)
