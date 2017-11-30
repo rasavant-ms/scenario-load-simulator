@@ -48,7 +48,7 @@ namespace ScenarioLoader.Logic.Interfaces
         /// thrown an exception.
         /// Setup() should be called only once, typically after the constructor.
         /// </summary>
-        IDeviceActor Setup(DeviceModel deviceModel, int position);
+        IDeviceActor Setup(DeviceModel deviceModel, string deviceName, int position);
 
         /// <summary>
         /// Call this method to start the simulated device, e.g. sending

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using ScenarioLoader.Logic.Interfaces;
 using ScenarioLoader.Logic.Models;
 using ScenarioLoader.Logic.Runtime;
-using System.Linq;
+using System;
 using System.Threading;
 
 namespace ScenarioLoader.Functions
@@ -20,7 +20,8 @@ namespace ScenarioLoader.Functions
         [FunctionName("ExecuteSimulation")]
         public static void Run([EventHubTrigger("execute-simulation", Connection = "EventHubConnection")]string simulationDataMessage, TraceWriter log)
         {
-            log.Info($"C# Event Hub trigger function processed a message: {simulationDataMessage}");
+            log.Info($"C# Event Hub trigger function started");
+            Console.SetOut(new ConsoleTextWriter(log.Trace));
 
             // Temporary workaround to allow twin JSON deserialization
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -59,12 +60,14 @@ namespace ScenarioLoader.Functions
             // Print some useful information
             PrintBootstrapInfo(container);
             var deviceModels = container.Resolve<IDeviceModels>();
-            var deviceModel = deviceModels.GetList().First();
+            var deviceModel = deviceModels.Get(simulationData.DeviceType);
 
             // TODO: use async/await with C# 7.1
             //container.Resolve<ISimulation>().RunAsync().Wait();
             var deviceActor = container.Resolve<IDeviceActor>();
-            deviceActor.Setup(deviceModel, 1).Start(CancellationToken);
+            deviceActor.Setup(deviceModel, simulationData.DeviceName.Replace(' ', '-'), 1).Start(CancellationToken);
+            Thread.Sleep(30000);
+            deviceActor.Stop();
         }
 
         private static void PrintBootstrapInfo(IContainer container)

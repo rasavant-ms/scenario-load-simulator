@@ -115,7 +115,7 @@ namespace ScenarioLoader.Logic
         /// thrown an exception.
         /// Setup() should be called only once, typically after the constructor.
         /// </summary>
-        public IDeviceActor Setup(DeviceModel deviceModel, int position)
+        public IDeviceActor Setup(DeviceModel deviceModel, string deviceName, int position)
         {
             if (this.ActorStatus != Status.None || this.setupDone)
             {
@@ -132,7 +132,8 @@ namespace ScenarioLoader.Logic
 
             this.setupDone = true;
 
-            this.deviceId = DEVICE_ID_PREFIX + deviceModel.Id + "." + position;
+            //this.deviceId = DEVICE_ID_PREFIX + deviceModel.Id + "." + position;
+            this.deviceId = deviceName;
 
             this.DeviceState = this.SetupTelemetryAndProperties(deviceModel);
             this.log.Debug("Initial device state", () => new { this.deviceId, this.DeviceState });

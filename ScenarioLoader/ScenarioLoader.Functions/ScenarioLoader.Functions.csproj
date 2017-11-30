@@ -5,7 +5,8 @@
   <ItemGroup>    
     <PackageReference Include="Autofac" Version="4.6.2" />    
     <PackageReference Include="Microsoft.Azure.WebJobs.ServiceBus" Version="2.1.0-beta4" />    
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.6" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.6" />    
+    <PackageReference Include="WindowsAzure.Storage" Version="8.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScenarioLoader.Logic\ScenarioLoader.Logic.csproj" />
