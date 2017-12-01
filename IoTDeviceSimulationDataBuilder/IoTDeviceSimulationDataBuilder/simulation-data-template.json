@@ -1,0 +1,44 @@
+{
+    "SimulationData":  [
+        {
+            "DeviceType":"chiller-01",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "elevator-01",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "engine-01",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "prototype-01",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "truck-01",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "chiller-02",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "elevator-02",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "engine-02",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "prototype-02",
+            "NumberOfDevices": 10
+        },
+        {
+            "DeviceType": "truck-02",
+            "NumberOfDevices": 10
+        }
+    ]   
+}
